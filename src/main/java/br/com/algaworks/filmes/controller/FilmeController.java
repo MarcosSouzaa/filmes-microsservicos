@@ -1,5 +1,7 @@
 package br.com.algaworks.filmes.controller;
 
+import br.com.algaworks.filmes.model.Filme;
+import br.com.algaworks.filmes.service.FilmeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,14 +23,14 @@ public class FilmeController {
 //O que quero testar é essa unidade de código abaixo
 
     @GetMapping("/{codigo}")
-    public ResponseEntity<Filme> obterFilme(@PathVariable Long codigo){
+    public ResponseEntity<Filme> obterFilme(@PathVariable Long codigo){ //se chegar código até 100, mesmo filme
 
         Filme filme = this.filmeService.obterFilme(codigo); //Daqui que vou obter os dados do filme
                                                            // poderia ser de um db
         if(filme == null){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build();//se for nul, responderemos com statusCode 404
         }
-        return ResponseEntity.ok(filme);
+        return ResponseEntity.ok(filme); //se for o filme, respoderemos com statusCode 200, passar no corpo 200
     }
 }
 

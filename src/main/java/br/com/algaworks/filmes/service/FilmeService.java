@@ -15,3 +15,7 @@ public class FilmeService {
         );
     }
 }
+
+// está retornando um filme fixo
+// Criei o Model Filme utilizando o lombok para os construtores
+// Ele tem codigo,título e descrição
