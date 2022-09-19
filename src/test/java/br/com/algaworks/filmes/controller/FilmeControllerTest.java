@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.*;
 
 @WebMvcTest //vai rodar dentro de um contexto web
-public class FilmeControllerTest {
+ class FilmeControllerTest {
 
     @Autowired //implementacao real
     private FilmeController filmeController;
@@ -36,11 +36,23 @@ public class FilmeControllerTest {
 
             given()                                             //Dado uma informacao
                   .accept(ContentType.JSON)                       //Dado esse reader(leitor) ContentType Json
-           .when()                                             // Quando Fizer um GET (Uma Requisicao)
+            .when()                                             // Quando Fizer um GET (Uma Requisicao)
                   .get("/filmes/{codigo}", 1L)    // faca um um get em /filmes/{codigo} cujo codigo e 1
-           .then()                                             //Quando chegar essa requisicao, entao
+            .then()                                             //Quando chegar essa requisicao, entao
                   .statusCode(HttpStatus.OK.value());              //O statusCode deve ser OK, 200 O STATUS DE SUCESSO.
                                                             // ele espera um valor int, por isso foi usado .value
                                                             // o statusCode é um ENUM
+    }
+    @Test
+    void deveRetornarNaoEncontrado_QuandoBuscarFilme(){
+        Mockito.when(this.filmeService.obterFilme(5L))
+                .thenReturn(null);
+
+            given()
+                .accept(ContentType.JSON)
+            .when()
+                .get("/filmes/{codigo}", 5L)
+            .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
     }
 }

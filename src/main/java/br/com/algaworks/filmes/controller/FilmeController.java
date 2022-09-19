@@ -31,8 +31,9 @@ public class FilmeController {
             return ResponseEntity.notFound().build();//se for nul, responderemos com statusCode 404
         }
         return ResponseEntity.ok(filme); //se for o filme, respoderemos com statusCode 200, passar no corpo 200
+     }
+
     }
-}
 
 //Não está usando o banco de dados
 //Filme está fixo
